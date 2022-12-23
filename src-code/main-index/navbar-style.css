@@ -1,0 +1,47 @@
+.navbar-title {
+	position: relative;
+	left: 30%;
+	font-size: large;
+	opacity: 1;
+	
+	animation: FontColor 1s;
+	transition: all 0.5s;
+}
+@keyframes FontColor{
+	from
+	{
+		left: 0%;
+		opacity: 0;
+	}
+	to
+	{
+		left: 30%;
+		opacity: 1;
+	}
+}
+
+.navbar-title:hover {
+	position: relative;
+	left: 50%;
+	font-size: large;
+}
+
+.nav-link-border {
+    background-color: #222222;
+    border-radius: 2rem;
+	border-color: white;
+	border-style: inset;
+    float: right;
+    height: 2.5rem;
+    width: 7rem;
+
+	display : flex;
+	justify-content : center;
+	align-items : center;
+
+	transition: all 0.5s;
+}
+
+.nav-link-border:hover{
+	background-color: #b7b7b7;
+}

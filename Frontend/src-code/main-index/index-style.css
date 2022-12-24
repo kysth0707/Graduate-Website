@@ -5,9 +5,14 @@
 .animation-content {
 	margin-top: 300px;
 	margin-bottom: 1000px;
+	text-align: center;
+
+	font-size: 30px;
+}
+
+.animation-content-smooth {
 	color: rgb(0, 0, 0);
 	text-align: center;
-	font-size: 40px;
 
 	opacity: 0;
 	transition: all 0.5s;

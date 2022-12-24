@@ -1,0 +1,5 @@
+Backend/__pycache__/*
+Backend/Password.txt
+Backend/Tokens.txt
+Backend/FileSavePassword.txt
+Backend/Files/*

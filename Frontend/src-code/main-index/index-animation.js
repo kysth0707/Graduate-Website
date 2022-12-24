@@ -13,7 +13,7 @@ window.onload = function()
 		});
 	});
 	
-	let Contents = document.getElementsByClassName('animation-content');
+	let Contents = document.getElementsByClassName('animation-content-smooth');
 	for(let i = 0; i < Contents.length; i++)
 	{
 		Observer.observe(Contents[i]);

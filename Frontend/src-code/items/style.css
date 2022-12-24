@@ -1,0 +1,26 @@
+.select-1 {
+	position: relative;
+	font-size: xx-large;
+	background-color: rgb(171, 171, 171);
+	width: 50%;
+
+	transition: all 0.2s;
+}
+
+.select-2 {
+	position: relative;
+	left: 15px;
+	font-size: xx-large;
+	background-color: gray;
+	width: 50%;
+
+	transition: all 0.2s;
+}
+
+.select-1:hover {
+	background-color: rgb(255, 255, 255);
+}
+
+.select-2:hover {
+	background-color: rgb(255, 255, 255);
+}

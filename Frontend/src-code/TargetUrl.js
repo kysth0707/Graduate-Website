@@ -1,2 +1,2 @@
-var BackendURL = 'localhost:7070';
-var FrontendURL = 'localhost:5500/Frontend';
+var BackendURL = 'nojam.easylab.kr:999';
+var FrontendURL = 'nojam.easylab.kr:2023';

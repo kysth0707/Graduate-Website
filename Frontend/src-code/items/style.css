@@ -2,7 +2,7 @@
 	position: relative;
 	font-size: xx-large;
 	background-color: rgb(171, 171, 171);
-	width: 50%;
+	width: 70%;
 
 	transition: all 0.2s;
 }
@@ -12,7 +12,7 @@
 	left: 15px;
 	font-size: xx-large;
 	background-color: gray;
-	width: 50%;
+	width: 70%;
 
 	transition: all 0.2s;
 }

@@ -7,7 +7,19 @@ import json
 from datetime import datetime
 import os
 
-app = FastAPI(docs_url="/documentation", redoc_url=None)
+app = FastAPI()
+
+origins = [
+    "*"
+]
+
+app.add_middleware(
+	CORSMiddleware,
+	allow_origins=origins,
+	allow_credentials=True,
+	allow_methods=["*"],
+	allow_headers=["*"]
+)
 
 Password = ""
 with open('./Password.txt', "r") as f:
@@ -36,18 +48,6 @@ DirStruct = {
 	'체육대회(4)' : True,
 	'체육대회-영상' : True,
 }
-
-origins = [
-	"*"
-]
-
-app.add_middleware(
-	CORSMiddleware,
-	allow_origins=origins,
-	allow_credentials=True,
-	allow_methods=["*"],
-	allow_headers=["*"]
-)
 
 TokenStrings = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
 TokenStringsLen = len(TokenStrings) - 1
@@ -115,4 +115,4 @@ def SaveFiles(pw : str):
 		return False
 
 if __name__ == "__main__":
-	uvicorn.run("app:app", host="0.0.0.0", port=7070, reload=True)
+	uvicorn.run("app:app", host="0.0.0.0", port=2023, reload=True)

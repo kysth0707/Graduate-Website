@@ -17,7 +17,7 @@ function InsertTr(urls, IsImg)
 	insertTr += '<tr align="center">';
 	for(var i = 0; i < 5; i++)
 	{
-		insertTr += '<td><'+Tag+' src="'+urls[i]+'" width="100%" onerror=' + 'this.style.display="none";' + '></td>';
+		insertTr += '<td><a href="'+urls[i]+'&isoriginal=true'+'" target="_blank"><'+Tag+' src="'+urls[i]+'" width="100%" onerror=' + 'this.style.display="none";' + '></a></td>';
 	}
 	insertTr += "</tr>";
 

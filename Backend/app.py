@@ -60,7 +60,7 @@ def a():
 	return True
 
 @app.get('/get/')
-async def ReadImage(token: str, imgdir: str, imgnum : int):
+async def ReadImage(token: str, imgdir: str, imgnum : int, isoriginal : bool = False):
 	if AvailableTokens.get(token) == None:
 		return False
 	else:
@@ -70,7 +70,10 @@ async def ReadImage(token: str, imgdir: str, imgnum : int):
 			Dir = DirStruct.get(imgdir)
 			if Dir == True:
 				Dir = imgdir
-			Dir = f"./Files/{Dir}"
+			if isoriginal or imgdir == '체육대회-영상':
+				Dir = f"./Files/{Dir}"
+			else:
+				Dir = f"./SmallFiles/{Dir}"
 			try:
 				return FileResponse(f'{Dir}/{os.listdir(Dir)[imgnum]}')
 			except:
@@ -115,4 +118,4 @@ def SaveFiles(pw : str):
 		return False
 
 if __name__ == "__main__":
-	uvicorn.run("app:app", host="0.0.0.0", port=2023, reload=True)
+	uvicorn.run("app:app", host="0.0.0.0", port=999, reload=True)

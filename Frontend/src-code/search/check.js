@@ -3,6 +3,7 @@ var ButtonPossible = true;
 function OnLoginButtonClick()
 {
 	if(!ButtonPossible) {return;}
+	ButtonPossible = false;
 
 	if($('#pw-input').val() == ""){
 		$('#pw-input').next('label').addClass('warning');

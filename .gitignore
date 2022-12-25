@@ -3,4 +3,5 @@ Backend/Password.txt
 Backend/Tokens.txt
 Backend/FileSavePassword.txt
 Backend/Files/*
+Backend/SmallFiles/*
 Frontend/__pycache__/*

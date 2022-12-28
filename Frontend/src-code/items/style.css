@@ -1,15 +1,16 @@
-.select-1 {
+.picture-selector {
 	position: relative;
 	font-size: xx-large;
 	background-color: rgb(171, 171, 171);
 	width: 70%;
 
 	transition: all 0.2s;
+	
 }
 
-.select-2 {
+.video-selector {
 	position: relative;
-	left: 15px;
+	/* left: 15px; */
 	font-size: xx-large;
 	background-color: gray;
 	width: 70%;
@@ -17,10 +18,10 @@
 	transition: all 0.2s;
 }
 
-.select-1:hover {
+.picture-selector:hover {
 	background-color: rgb(255, 255, 255);
 }
 
-.select-2:hover {
+.video-selector:hover {
 	background-color: rgb(255, 255, 255);
 }

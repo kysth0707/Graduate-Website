@@ -6,6 +6,7 @@ import random
 import json
 from datetime import datetime
 import os
+from StructModule import GetStruct
 
 app = FastAPI()
 
@@ -29,25 +30,16 @@ FileSavePassword = ""
 with open('./FileSavePassword.txt', "r") as f:
 	FileSavePassword = f.readline()
 
-AvailableTokens = {}
+AvailableTokens = {'6Bi8uhpvXuEEydZtcif5JF4zSE7bF0yAms7EpT2BQycdlNG6o2zXK8JYSZuNp8wQgJ2fYMbnddWoJaohSvr0yCR1uTiGyEq1ZlwdIVEwsbAs2DK4gUfP5QkPVX3PVJWcRVYtO2hOohp9MJSjCAOzXf2dGA2b29WzSaDuOB2mCJT1asY6QMMH5kp0tt5BDo11kwaSQ4C8nhDa180a0tND8KMQN11SlNHMCssAtAxnvdGyeqITHtpOUwfLYNWRcg4ei5wO5ZIidb331DEwdRBFKfNZPLaY5efj5DJjScZJBkQuGGpkfGVp3WrzqGiejihuI1FdxKFUXqczB0awi9NZKFE1y7XXV9UNtUQ24BsDRFGpLDNhcZT2OcGLzHBLbUCKwNTKMz641NYlOuMfHJGW0d2K9N8wo2XqdOCs7KT9qryolAtL1zm2Irz71t9UZi1lGZKqagPW8nfmIRWvAaZvyQ2dEI5TUZI6mc4I4XyPFrexKDnxkDZFYEMCDNPGDhpP' : True}
 # 'Token' : IP or Date?
 
-DirStruct = {
-	'기타' : True,
-	'3-1반' : '에버랜드/3-1반',
-	'3-2반' : '에버랜드/3-2반',
-	'3-3반' : '에버랜드/3-3반',
-	'3-4반' : '에버랜드/3-4반',
-	'3-5반' : '에버랜드/3-5반',
-	'3-6반' : '에버랜드/3-6반',
-	'연극' : True,
-	'졸업사진-촬영' : True,
-	'체육대회(1)' : True,
-	'체육대회(2)' : True,
-	'체육대회(3)' : True,
-	'체육대회(4)' : True,
-	'체육대회-영상' : True,
-}
+DirStructOld = GetStruct()
+DirStruct={}
+for key,value in DirStructOld.items():
+	if "\\" in key:
+		key = str(key).replace('\\','_')
+	DirStruct[key] = True
+
 
 TokenStrings = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
 TokenStringsLen = len(TokenStrings) - 1
@@ -59,6 +51,10 @@ def RandomToken():
 def a():
 	return True
 
+@app.get('/getstruct/')
+def a():
+	return DirStruct
+
 @app.get('/get/')
 async def ReadImage(token: str, imgdir: str, imgnum : int, isoriginal : bool = False):
 	if AvailableTokens.get(token) == None:
@@ -67,17 +63,25 @@ async def ReadImage(token: str, imgdir: str, imgnum : int, isoriginal : bool = F
 		if DirStruct.get(imgdir) == None:
 			return False
 		else:
-			Dir = DirStruct.get(imgdir)
-			if Dir == True:
-				Dir = imgdir
-			if isoriginal or imgdir == '체육대회-영상':
-				Dir = f"./Files/{Dir}"
+			TempDir = str(imgdir).replace('_',"\\")
+			if isoriginal:
+				Dir = f"./Files/{TempDir}"
 			else:
-				Dir = f"./SmallFiles/{Dir}"
+				Dir = f"./SmallFiles/{TempDir}"
+			if str(imgdir)[0] == "V":
+				Dir = f"./Files/{TempDir}"
+				if not isoriginal:
+					try:
+						return os.listdir(Dir)[imgnum]
+					except:
+						return "존재하지 않는 데이터입니다."
+				# return FileResponse(f"./Video-SmallFile.png")
+			print(Dir)
 			try:
+				print(f'{Dir}/{os.listdir(Dir)[imgnum]}')
 				return FileResponse(f'{Dir}/{os.listdir(Dir)[imgnum]}')
 			except:
-				return False
+				return "존재하지 않는 데이터입니다"
 
 @app.get('/getcount/')
 async def ReadImage(token: str, imgdir: str):
@@ -87,11 +91,14 @@ async def ReadImage(token: str, imgdir: str):
 		if DirStruct.get(imgdir) == None:
 			return False
 		else:
-			Dir = DirStruct.get(imgdir)
+			Dir = str(imgdir).replace('_',"\\")
 			if Dir == True:
 				Dir = imgdir
 			Dir = f"./Files/{Dir}"
-			return len(os.listdir(Dir))
+			try:
+				return len(os.listdir(Dir))
+			except:
+				return False
 
 Struct = []
 

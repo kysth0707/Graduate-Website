@@ -1,3 +1,10 @@
+h1 {
+	position: relative;
+	color: rgb(0, 0, 0);
+	background-color: rgb(211, 211, 211);
+	width: 100%;
+}
+
 .picture-selector {
 	position: relative;
 	font-size: xx-large;

@@ -30,7 +30,7 @@ FileSavePassword = ""
 with open('./FileSavePassword.txt', "r") as f:
 	FileSavePassword = f.readline()
 
-AvailableTokens = {'6Bi8uhpvXuEEydZtcif5JF4zSE7bF0yAms7EpT2BQycdlNG6o2zXK8JYSZuNp8wQgJ2fYMbnddWoJaohSvr0yCR1uTiGyEq1ZlwdIVEwsbAs2DK4gUfP5QkPVX3PVJWcRVYtO2hOohp9MJSjCAOzXf2dGA2b29WzSaDuOB2mCJT1asY6QMMH5kp0tt5BDo11kwaSQ4C8nhDa180a0tND8KMQN11SlNHMCssAtAxnvdGyeqITHtpOUwfLYNWRcg4ei5wO5ZIidb331DEwdRBFKfNZPLaY5efj5DJjScZJBkQuGGpkfGVp3WrzqGiejihuI1FdxKFUXqczB0awi9NZKFE1y7XXV9UNtUQ24BsDRFGpLDNhcZT2OcGLzHBLbUCKwNTKMz641NYlOuMfHJGW0d2K9N8wo2XqdOCs7KT9qryolAtL1zm2Irz71t9UZi1lGZKqagPW8nfmIRWvAaZvyQ2dEI5TUZI6mc4I4XyPFrexKDnxkDZFYEMCDNPGDhpP' : True}
+AvailableTokens = {}
 # 'Token' : IP or Date?
 
 DirStructOld = GetStruct()
@@ -44,7 +44,12 @@ for key,value in DirStructOld.items():
 TokenStrings = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
 TokenStringsLen = len(TokenStrings) - 1
 def RandomToken():
-	return "".join([TokenStrings[random.randint(0, TokenStringsLen)] for i in range(512)])
+	return "".join([TokenStrings[random.randint(0, TokenStringsLen)] for i in range(16)])
+
+StructCount = 0
+
+def Now():
+	return datetime.now().strftime("%Y%m%d")
 
 
 @app.get('/')
@@ -53,10 +58,14 @@ def a():
 
 @app.get('/getstruct/')
 def a():
+	global StructCount
+	StructCount += 1
+	print(f"/getstruct/ {Now()} - {StructCount}")
 	return DirStruct
 
 @app.get('/get/')
 async def ReadImage(token: str, imgdir: str, imgnum : int, isoriginal : bool = False):
+	print(f"/get/ {Now()} - {token}")
 	if AvailableTokens.get(token) == None:
 		return False
 	else:
@@ -76,15 +85,16 @@ async def ReadImage(token: str, imgdir: str, imgnum : int, isoriginal : bool = F
 					except:
 						return "존재하지 않는 데이터입니다."
 				# return FileResponse(f"./Video-SmallFile.png")
-			print(Dir)
+			# print(Dir)
 			try:
-				print(f'{Dir}/{os.listdir(Dir)[imgnum]}')
+				# print(f'{Dir}/{os.listdir(Dir)[imgnum]}')
 				return FileResponse(f'{Dir}/{os.listdir(Dir)[imgnum]}')
 			except:
 				return "존재하지 않는 데이터입니다"
 
 @app.get('/getcount/')
 async def ReadImage(token: str, imgdir: str):
+	print(f"/getcount/ {Now()} - {token}")
 	if AvailableTokens.get(token) == None:
 		return False
 	else:
@@ -108,9 +118,11 @@ Struct = []
 
 @app.get('/gettoken/')
 def GetToken(pw : str):
+	print(f"/gettoken/ {Now()} - {pw}")
 	if Password == pw:
 		Token = RandomToken()
-		AvailableTokens[Token] = datetime.now().strftime("%Y%m%d")
+		# AvailableTokens[Token] = datetime.now().strftime("%Y%m%d")
+		AvailableTokens[Token] = True
 		return {"Token" : Token}
 	else:
 		return False

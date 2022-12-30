@@ -6,3 +6,4 @@ Backend/Files/*
 Backend/SmallFiles/*
 Frontend/__pycache__/*
 Backend/Files.zip
+Backend/test.py
